@@ -12,7 +12,6 @@ import org.apache.http.HttpEntity;
 
 import android.content.Context;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -39,12 +38,6 @@ public class Utils {
         return (isWeekday() && hourOfDay > 7 && hourOfDay < 9 || true);
     }
     
-    public static boolean isNewDay() {
-    	int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-    	int minuteOfHour = Calendar.getInstance().get(Calendar.MINUTE);
-        return (hourOfDay == 0 && minuteOfHour < 5);
-    }
-    
     public static String getDayOfMonthSuffix(final int n) {
         if (n >= 11 && n <= 13) {
             return "th";
@@ -60,6 +53,13 @@ public class Utils {
                 return "th";
         }
     }
+
+
+	public static boolean isNewDay() {
+		int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		int minuteOfHour = Calendar.getInstance().get(Calendar.MINUTE);
+		return (hourOfDay == 0 && minuteOfHour < 5);
+	}
     
     public static String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
 		InputStream in = entity.getContent();
@@ -192,7 +192,7 @@ class TimeSelectionWidget {
 			return start.getHour();
 	}
 	public int getEndHour() {
-		if (android.os.Build.VERSION.SDK_INT < 23) 	
+		if (android.os.Build.VERSION.SDK_INT < 23) 
 			return end.getCurrentHour();
 		else
 			return end.getHour();
